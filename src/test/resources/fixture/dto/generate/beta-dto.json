@@ -1,0 +1,11 @@
+{
+  "$schema": "http://json-schema.org/draft/2019-09/schema",
+  "$id": "https://sourcemotion.ch.vertx.hermes/test/beta",
+  "type": "object",
+  "properties": {
+    "intField": {
+      "type" : "integer"
+    }
+  },
+  "required": ["intField"]
+}

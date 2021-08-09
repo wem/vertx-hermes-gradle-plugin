@@ -1,0 +1,23 @@
+abstract class BaseJsonMessageCodec<T>(private val messageType: Class<T>, private val name: String) : MessageCodec<T?, T?> {
+    override fun encodeToWire(buffer: Buffer, s: T?) {
+        val serialized = if (s != null) {
+            JsonObject.mapFrom(s).toBuffer()
+        } else Buffer.buffer()
+        buffer.appendInt(serialized.length())
+        buffer.appendBuffer(serialized)
+    }
+
+    override fun decodeFromWire(pos: Int, buffer: Buffer): T? {
+        val payloadLength = buffer.getInt(pos)
+        return if (payloadLength > 0) {
+            val payloadPos = pos + 4
+            buffer.slice(payloadPos, payloadPos + payloadLength).toJsonObject().mapTo(messageType)
+        } else null
+    }
+
+    override fun transform(s: T?): T? = s
+
+    override fun name(): String = name
+
+    override fun systemCodecID(): Byte = -1
+}

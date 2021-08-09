@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft/2019-09/schema",
+  "$id": "https://sourcemotion.ch.vertx.hermes/communication",
+  "type": "object",
+  "properties": {
+    "name" : {
+      "type" : "string",
+      "description" : "Name of the communication"
+    },
+    "address" : {
+      "type" : "string",
+      "description" : "The Vert.x Eventbus address of the communication"
+    },
+    "sendType": {
+      "type" : "string",
+      "description" : "Full qualified class name of the dto sent to the consumer. If not defined kotlin.Unit will used"
+    },
+    "replyType": {
+      "type" : "string",
+      "description" : "Full qualified class name of the dto replied from the consumer. If not defined kotlin.Unit will used"
+    }
+  },
+  "required": ["address"]
+}

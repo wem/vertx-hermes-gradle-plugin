@@ -1,0 +1,10 @@
+{
+  "$schema": "http://json-schema.org/draft/2019-09/schema",
+  "$id": "https://sourcemotion.ch.vertx.hermes/test/alpha",
+  "type": "object",
+  "properties": {
+    "stringField" : {
+      "type" : "string"
+    }
+  }
+}

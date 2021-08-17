@@ -1,5 +1,5 @@
 package ch.sourcemotion.vertx.gradle.hermes.generate.messagecodec
 
-import org.gradle.api.GradleException
+import ch.sourcemotion.vertx.gradle.hermes.plugin.HermesException
 
-class MessageCodecGeneratorException(message: String, cause: Throwable? = null) : GradleException(message, cause)
+class MessageCodecGeneratorException(message: String, cause: Throwable? = null) : HermesException(message, cause)

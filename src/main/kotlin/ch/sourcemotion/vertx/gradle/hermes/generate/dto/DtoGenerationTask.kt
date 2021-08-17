@@ -30,7 +30,11 @@ abstract class DtoGenerationTask : AbstractHermesTask(), DefinesPackageName, Def
     @TaskAction
     fun generate() {
         val configuration = createGeneratorConfiguration()
-        val generatedClasses = DtoGenerator().generate(configuration)
+        val generatedClasses = try {
+            DtoGenerator().generate(configuration)
+        } catch (e: Exception) {
+            throw DtoGeneratorException("Failed to generate dto(s) according configuration $configuration", e)
+        }
         generatedClassInfo.get().generatedClasses.set(generatedClasses)
     }
 

@@ -17,7 +17,8 @@ abstract class MessageCodecGenerationTask : AbstractHermesTask(), DefinesPackage
     companion object {
         const val NAME = "generateMessageCodec"
         internal const val DEFAULT_MESSAGE_CODEC_FILE_NAME = "HermesMessageCodecs"
-        internal val DEFAULT_MESSAGE_CODEC_NAME_SUPPLIER = Function<DtoClassInfo, String> { "${it.className}MessageCodec" }
+        internal val DEFAULT_MESSAGE_CODEC_NAME_SUPPLIER =
+            Function<DtoClassInfo, String> { "${it.className}MessageCodec" }
     }
 
     @get:Input
@@ -38,7 +39,13 @@ abstract class MessageCodecGenerationTask : AbstractHermesTask(), DefinesPackage
     @TaskAction
     fun generate() {
         val configuration = createGeneratorConfiguration()
-        MessageCodecGenerator().generate(configuration)
+        try {
+            MessageCodecGenerator().generate(configuration)
+        } catch (e: Exception) {
+            throw MessageCodecGeneratorException(
+                "Failed to generate message codec according configuration $configuration", e
+            )
+        }
     }
 
     internal fun createDefaultRelativeOutputPath(sourceSet: SourceSet) =

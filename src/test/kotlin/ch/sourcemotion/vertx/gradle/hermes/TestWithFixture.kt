@@ -5,5 +5,9 @@ import java.nio.file.Paths
 
 interface TestWithFixture {
     fun fixturePathOf(fixtureResourcePathValue: String): Path =
-        Paths.get("${Paths.get(TestWithFixture::class.java.getResource("/fixture/$fixtureResourcePathValue").toURI())}")
+        Paths.get(TestWithFixture::class.java.getResource("/fixture/$fixtureResourcePathValue").toURI())
+
+    fun fixtureTextContent(fixtureResourcePathValue: String): String =
+        fixturePathOf(fixtureResourcePathValue).toFile().inputStream()
+            .use { ins -> ins.bufferedReader().use { reader -> reader.readText() } }
 }

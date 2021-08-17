@@ -1,0 +1,11 @@
+{
+  "communications": [
+    {
+      "name": "someName",
+      "sendType": "send",
+      "sendMessageType": "java.lang.String",
+      "replyMessageType": "java.lang.String",
+      "localOnly": true
+    }
+  ]
+}

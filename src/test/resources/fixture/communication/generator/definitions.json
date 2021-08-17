@@ -1,0 +1,65 @@
+{
+  "communications": [
+    {
+      "name": "SendWithSendMessageType",
+      "address": "send-WithSendMessageType",
+      "sendMessageType": "kotlin.String"
+    },
+    {
+      "name": "SendWithoutSendOrReplyMessageType",
+      "address": "send-WithoutSendOrReplyMessageType"
+    },
+    {
+      "name": "SendLocalOnly",
+      "address": "send-LocalOnly",
+      "localOnly" : true
+    },
+    {
+      "name": "PublishWithSendMessageType",
+      "address": "publish-WithSendMessageType",
+      "sendMessageType": "kotlin.String",
+      "sendType": "publish"
+    },
+    {
+      "name": "PublishWithoutSendOrReplyMessageType",
+      "address": "publish-WithoutSendOrReplyMessageType",
+      "sendType": "publish"
+    },
+    {
+      "name": "PublishLocalOnly",
+      "address": "publish-LocalOnly",
+      "sendType": "publish",
+      "localOnly" : true
+    },
+    {
+      "name": "RequestWithReplyMessageType",
+      "address": "request-WithReplyMessageType",
+      "replyMessageType": "kotlin.String?",
+      "sendType": "request"
+    },
+    {
+      "name": "RequestWithSendMessageType",
+      "address": "request-WithSendMessageType",
+      "sendMessageType": "kotlin.String",
+      "sendType": "request"
+    },
+    {
+      "name": "RequestWithSendAndReplyMessageType",
+      "address": "request-WithSendAndReplyMessageType",
+      "sendMessageType": "kotlin.String",
+      "replyMessageType": "kotlin.String",
+      "sendType": "request"
+    },
+    {
+      "name": "RequestWithoutSendOrReplyMessageType",
+      "address": "request-WithoutSendOrReplyMessageType",
+      "sendType": "request"
+    },
+    {
+      "name": "RequestLocalOnly",
+      "address": "request-LocalOnly",
+      "sendType": "request",
+      "localOnly" : true
+    }
+  ]
+}

@@ -1,13 +1,16 @@
 package ch.sourcemotion.vertx.gradle.hermes
 
 import ch.sourcemotion.vertx.gradle.hermes.files.add
+import ch.sourcemotion.vertx.gradle.hermes.generate.communication.CommunicationGenerationTask
 import ch.sourcemotion.vertx.gradle.hermes.generate.dto.DtoGenerationTask
 import ch.sourcemotion.vertx.gradle.hermes.plugin.HermesExtension
 import io.kotest.matchers.collections.shouldContain
+import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.shouldBe
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.api.Task
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.tasks.SourceSet
 import org.gradle.testfixtures.ProjectBuilder
@@ -60,4 +63,7 @@ abstract class AbstractProjectSupportTest {
     protected fun SourceSet.verifySourceDir(expectedSourcePath: Path) {
         allJava.srcDirs.shouldContain(expectedSourcePath.toFile())
     }
+
+    inline fun<reified T: Task> Project.taskInstance(): T =
+        project.tasks.withType(T::class.java).shouldHaveSize(1).first()
 }

@@ -1,0 +1,8 @@
+{
+  "communications": [
+    {
+      "name": "someName",
+      "address": "some-address"
+    }
+  ]
+}

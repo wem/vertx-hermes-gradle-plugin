@@ -88,7 +88,11 @@ abstract class MessageCodecConfiguration : BaseConfiguration(), DefinesClassesIn
     abstract override val messageCodecNameSupplier: Property<Function<DtoClassInfo, String>>
 }
 
-abstract class CommunicationConfiguration : BaseConfigurationWithInputDir() {
+abstract class CommunicationConfiguration : BaseConfigurationWithInputDir(), DefinesGenerateSender,
+    DefinesGenerateConsumer {
     @get:Input
-    abstract val generateSuspendFunctions: Property<Boolean>
+    abstract override val generateSender: Property<Boolean>
+
+    @get:Input
+    abstract override val generateConsumer: Property<Boolean>
 }

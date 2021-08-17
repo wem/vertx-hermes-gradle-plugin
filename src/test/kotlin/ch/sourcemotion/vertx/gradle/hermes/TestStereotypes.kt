@@ -27,3 +27,13 @@ interface DefinesClassesInfoImplTest {
     fun with_alternative_classes_info_on_task()
     fun with_alternative_classes_info_on_extension()
 }
+
+interface DefinesGenerateSenderImplTest {
+    fun with_alternative_generate_sender_on_task()
+    fun with_alternative_generate_sender_on_extension()
+}
+
+interface DefinesGenerateConsumerImplTest {
+    fun with_alternative_generate_consumer_on_task()
+    fun with_alternative_generate_consumer_on_extension()
+}

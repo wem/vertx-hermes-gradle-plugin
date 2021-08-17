@@ -84,3 +84,37 @@ interface DefinesMessageCodecNameSupplier {
         }
     }
 }
+
+interface DefinesGenerateSender {
+    private companion object {
+        const val DEFAULT = true
+    }
+    val generateSender: Property<Boolean>
+
+    fun applyFinalGenerateSender(alternative: DefinesGenerateSender) {
+        if (!generateSender.isPresent) {
+            if (alternative.generateSender.isPresent) {
+                generateSender.set(alternative.generateSender)
+            } else {
+                generateSender.set(DEFAULT)
+            }
+        }
+    }
+}
+
+interface DefinesGenerateConsumer {
+    private companion object {
+        const val DEFAULT = true
+    }
+    val generateConsumer: Property<Boolean>
+
+    fun applyFinalGenerateConsumer(alternative: DefinesGenerateConsumer) {
+        if (!generateConsumer.isPresent) {
+            if (alternative.generateConsumer.isPresent) {
+                generateConsumer.set(alternative.generateConsumer)
+            } else {
+                generateConsumer.set(DEFAULT)
+            }
+        }
+    }
+}

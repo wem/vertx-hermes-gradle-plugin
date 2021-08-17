@@ -14,11 +14,6 @@ import java.nio.file.Paths
 
 internal class DtoGeneratorTest : AbstractGeneratorTest(), TestWithFixture {
 
-    private companion object {
-        const val PACKAGE = "ch.sourcemotion.vertx.gradle.hermes.test"
-        val packageParts = PACKAGE.split(".").toTypedArray()
-    }
-
     private val sut = DtoGenerator()
 
     @Test
@@ -26,11 +21,11 @@ internal class DtoGeneratorTest : AbstractGeneratorTest(), TestWithFixture {
         val configuration = DtoGeneratorConfiguration(
             fixturePathOf("dto/generate/alpha-dto.json").toFile(),
             tempDir.toFile(),
-            PACKAGE
+            PACKAGE_NAME
         )
         val generatedClasses = sut.generate(configuration)
         tempDir.verifyAlphaDto()
-        generatedClasses.shouldHaveSize(1).first().verify(PACKAGE, "Alpha")
+        generatedClasses.shouldHaveSize(1).first().verify(PACKAGE_NAME, "Alpha")
     }
 
     @Test
@@ -38,24 +33,24 @@ internal class DtoGeneratorTest : AbstractGeneratorTest(), TestWithFixture {
         val configuration = DtoGeneratorConfiguration(
             fixturePathOf("dto/generate").toFile(),
             tempDir.toFile(),
-            PACKAGE
+            PACKAGE_NAME
         )
         val generatedClasses = sut.generate(configuration)
         tempDir.verifyAlphaDto()
         tempDir.verifyBetaDto()
         generatedClasses.shouldHaveSize(2).asClue { classes ->
-            classes.first { it.className == "Alpha" }.verify(PACKAGE, "Alpha")
-            classes.first { it.className == "Beta" }.verify(PACKAGE, "Beta")
+            classes.first { it.className == "Alpha" }.verify(PACKAGE_NAME, "Alpha")
+            classes.first { it.className == "Beta" }.verify(PACKAGE_NAME, "Beta")
         }
     }
 
     private fun Path.verifyAlphaDto() {
-        val kCLass = compileSourceFile(Paths.get("$this", *packageParts, "Alpha.kt"), "$PACKAGE.Alpha")
+        val kCLass = compileSourceFile(Paths.get("$this", *packageNameParts, "Alpha.kt"), "$PACKAGE_NAME.Alpha")
         kCLass.declaredFields.firstOrNull { it.name == "stringField" }.shouldNotBeNull()
     }
 
     private fun Path.verifyBetaDto() {
-        val kCLass = compileSourceFile(Paths.get("$this", *packageParts, "Beta.kt"), "$PACKAGE.Beta")
+        val kCLass = compileSourceFile(Paths.get("$this", *packageNameParts, "Beta.kt"), "$PACKAGE_NAME.Beta")
         kCLass.declaredFields.firstOrNull { it.name == "intField" }.shouldNotBeNull()
     }
 

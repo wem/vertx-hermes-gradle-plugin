@@ -1,0 +1,9 @@
+{
+  "communications": [
+    {
+      "name": "someName",
+      "address": "some-address",
+      "sendMessageType": "java.lang.String"
+    }
+  ]
+}

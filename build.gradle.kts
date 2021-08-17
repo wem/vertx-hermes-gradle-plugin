@@ -18,12 +18,14 @@ dependencies {
         exclude("org.jetbrains.kotlin", "*")
         exclude("org.jetbrains.kotlinx", "*")
     }
+    implementation("io.vertx:vertx-lang-kotlin-coroutines")
 
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.11.4")
 
     implementation("com.squareup:kotlinpoet:1.9.0")
     implementation("net.pwall.json:json-kotlin-schema-codegen:0.34")
 
+    testImplementation("io.vertx:vertx-junit5")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.7.2")
     testImplementation("org.junit.jupiter:junit-jupiter-params:5.7.2")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")

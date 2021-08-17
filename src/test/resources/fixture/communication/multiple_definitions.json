@@ -1,0 +1,20 @@
+{
+  "communications": [
+    {
+      "name": "someName",
+      "address": "some-address",
+      "sendType": "request",
+      "sendMessageType": "java.lang.String",
+      "replyMessageType": "java.lang.String",
+      "localOnly": true
+    },
+    {
+      "name": "someName2",
+      "address": "some-address2",
+      "sendType": "request",
+      "sendMessageType": "java.lang.String2",
+      "replyMessageType": "java.lang.String2",
+      "localOnly": false
+    }
+  ]
+}

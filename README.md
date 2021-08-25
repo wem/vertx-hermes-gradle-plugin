@@ -52,12 +52,12 @@ hermes {
 
 #### properties
 
-Name | Description | Default
------------- | -------------
-outputDir | Where the sources go | `$buildDir/generated/sources/hermes/kotlin/$sourceSet` 
-inputDir | Dto JSON schema source | `$projectDir/src/$sourceSet/hermes/dto`
-enable | Enable the task | `true`
-packageName | Package of the generated dtos (mandatory) | `null` 
+| Name | Description | Default |
+| --- | --- | --- |
+| outputDir | Where the sources go | `$buildDir/generated/sources/hermes/kotlin/$sourceSet` |
+| inputDir | Dto JSON schema source | `$projectDir/src/$sourceSet/hermes/dto` |
+| enable | Enable the task | `true` |
+| packageName | Package of the generated dtos (mandatory) | `null` | 
 
 #### Task
 The plugin will register a task called `generateDto`
@@ -77,14 +77,14 @@ hermes {
 
 #### properties
 
-Name | Description | Default
------------- | -------------
-outputDir | Where the sources go | `$buildDir/generated/sources/hermes/kotlin/$sourceSet`
-classesInfo | Class info to generate message codecs | `empty`
-enable | Enable the task | `true`
-messageCodecsFileName | Generated file name | "HermesMessageCodecs"
-messageCodecNameSupplier | Supplier of each codec name | `${simpleClassName}MessageCodec`
-packageName | Package of the generated message codecs (mandatory) | `null` 
+| Name | Description | Default |
+| --- | --- | --- |
+| outputDir | Where the sources go | `$buildDir/generated/sources/hermes/kotlin/$sourceSet` |
+| classesInfo | Class info to generate message codecs | `empty` |
+| enable | Enable the task | `true` |
+| messageCodecsFileName | Generated file name | "HermesMessageCodecs" |
+| messageCodecNameSupplier | Supplier of each codec name | `${simpleClassName}MessageCodec` |
+| packageName | Package of the generated message codecs (mandatory) | `null` |
 
 ##### Class info
 
@@ -109,14 +109,14 @@ hermes {
 
 #### properties
 
-Name | Description | Default
------------- | -------------
-inputDir | Dto JSON schema sources | `$projectDir/src/$sourceSet/hermes/communication`
-outputDir | Where the sources go | `$buildDir/generated/sources/hermes/kotlin/$sourceSet`
-enable | Enable the task | `true`
-generateSender | Sender generated | `true`
-generateConsumer | Sender generated | `true`
-packageName | Package of the generated message codecs (mandatory) | `null` 
+| Name | Description | Default |
+| --- | --- | --- |
+| inputDir | Dto JSON schema sources | `$projectDir/src/$sourceSet/hermes/communication` |
+| outputDir | Where the sources go | `$buildDir/generated/sources/hermes/kotlin/$sourceSet` |
+| enable | Enable the task | `true` |
+| generateSender | Sender generated | `true` |
+| generateConsumer | Sender generated | `true` |
+| packageName | Package of the generated message codecs (mandatory) | `null` | 
 
 ##### JSON schema
 

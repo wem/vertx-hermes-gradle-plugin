@@ -9,6 +9,7 @@ import ch.sourcemotion.vertx.gradle.hermes.plugin.HermesPlugin
 import io.kotest.assertions.asClue
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
+import io.kotest.matchers.collections.shouldBeEmpty
 import io.kotest.matchers.collections.shouldContainExactly
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
@@ -131,7 +132,7 @@ internal class MessageCodecGenerationTaskTest : AbstractProjectSupportTest(), De
 
         val task = project.tasks.withType(MessageCodecGenerationTask::class.java).shouldHaveSize(1).first()
         task.classesInfo.isPresent.shouldBeTrue()
-        task.classesInfo.get().shouldContainExactly(expectedDtoClass)
+        task.classesInfo.get().shouldBeEmpty()
     }
 
     @Test

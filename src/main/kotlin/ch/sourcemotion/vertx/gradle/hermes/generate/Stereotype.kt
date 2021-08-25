@@ -45,24 +45,6 @@ interface DefinesOutputDir {
 
 interface DefinesClassesInfo {
     val classesInfo: ListProperty<DtoClassInfo>
-
-    fun applyFinalClassesInfo(
-        project: Project,
-        alternative: DefinesClassesInfo,
-        dtoGenOutput: Provider<DtoGeneratorTaskInternalOutput>
-    ) {
-        val generatedClassesInfo =
-            if (dtoGenOutput.isPresent && dtoGenOutput.get().generatedClasses.isPresent) {
-                dtoGenOutput.get().generatedClasses.get()
-            } else emptyList()
-        val classesInfoByConfig = if (classesInfo.isPresent && classesInfo.get().isNotEmpty()) {
-            classesInfo.get()
-        } else if (alternative.classesInfo.isPresent) {
-            alternative.classesInfo.get()
-        } else emptyList()
-        val finalClassesInfo = (generatedClassesInfo + classesInfoByConfig).distinct()
-        classesInfo.set(finalClassesInfo)
-    }
 }
 
 interface DefinesMessageCodecsFileName {

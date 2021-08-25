@@ -55,7 +55,6 @@ class HermesPlugin : Plugin<Project> {
                     dtoGenTaskProvider,
                     extension,
                     codecGenTaskProvider,
-                    project,
                     dtoGeneratorTaskInternalOutput,
                     projectOutputPath,
                     sourceSet,
@@ -127,7 +126,6 @@ class HermesPlugin : Plugin<Project> {
         dtoGenTaskProvider: TaskProvider<DtoGenerationTask>,
         extension: HermesExtension,
         codecGenTask: TaskProvider<MessageCodecGenerationTask>,
-        project: Project,
         dtoGeneratorTaskInternalOutput: Provider<DtoGeneratorTaskInternalOutput>,
         projectOutputPath: Path,
         sourceSet: SourceSet,
@@ -139,9 +137,9 @@ class HermesPlugin : Plugin<Project> {
         if (taskEnabled) {
             val task = codecGenTask.get()
             task.applyFinalPackageName(extension.codec)
-            task.applyFinalClassesInfo(project, extension.codec, dtoGeneratorTaskInternalOutput)
             task.applyFinalMessageCodecsFileName(extension.codec)
             task.applyFinalDefinesMessageCodecNameSupplier(extension.codec)
+            task.generatedClassesInfo.set(dtoGeneratorTaskInternalOutput)
 
             val finalOutputPath = task.applyFinalOutputPath(
                 projectOutputPath,

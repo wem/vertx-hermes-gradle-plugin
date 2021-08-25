@@ -3,6 +3,7 @@ package ch.sourcemotion.vertx.gradle.hermes.generate.messagecodec
 import ch.sourcemotion.vertx.gradle.hermes.files.toPath
 import ch.sourcemotion.vertx.gradle.hermes.generate.*
 import ch.sourcemotion.vertx.gradle.hermes.generate.dto.DtoGeneratorTaskInternalOutput
+import ch.sourcemotion.vertx.gradle.hermes.plugin.HermesExtension
 import ch.sourcemotion.vertx.gradle.hermes.plugin.task.AbstractHermesTask
 import org.codehaus.groovy.reflection.ClassInfo
 import org.gradle.api.file.DirectoryProperty
@@ -33,6 +34,9 @@ abstract class MessageCodecGenerationTask : AbstractHermesTask(), DefinesPackage
     @get:Input
     abstract override val classesInfo: ListProperty<DtoClassInfo>
 
+    @get:Internal
+    internal abstract val generatedClassesInfo: Property<DtoGeneratorTaskInternalOutput>
+
     @get:OutputDirectory
     abstract override val outputDir: DirectoryProperty
 
@@ -48,15 +52,28 @@ abstract class MessageCodecGenerationTask : AbstractHermesTask(), DefinesPackage
         }
     }
 
+    /**
+     * We have to evaluate the classes info about the message codec classes recently before task run because otherwise
+     * we are too early that the extension, task is configured by script(s) or the too late.
+     */
+    private fun evaluateClassesInfo() : List<DtoClassInfo> {
+        val fromExtension = project.extensions.getByType(HermesExtension::class.java).codec.classesInfo.getOrElse(
+            emptyList())
+        val fromDtoGenTask = generatedClassesInfo.get().generatedClasses.getOrElse(emptyList())
+        val fromThisTask = classesInfo.getOrElse(emptyList())
+        return (fromExtension + fromDtoGenTask + fromThisTask).distinct()
+    }
+
     internal fun createDefaultRelativeOutputPath(sourceSet: SourceSet) =
         "generated/sources/hermes/kotlin/${sourceSet.name}".toPath()
 
     private fun createGeneratorConfiguration(): MessageCodecGeneratorConfiguration {
+        val classesInfo = evaluateClassesInfo()
         return MessageCodecGeneratorConfiguration(
             outputDir.asFile.get(),
             packageName.get(),
             messageCodecsFileName.get(),
-            classesInfo.get(),
+            classesInfo,
             messageCodecNameSupplier.get()
         )
     }

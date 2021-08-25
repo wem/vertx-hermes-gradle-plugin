@@ -3,6 +3,7 @@ plugins {
     kotlin("jvm") version "1.5.21"
     id("java-gradle-plugin")
     id("maven-publish")
+    id("com.gradle.plugin-publish") version "0.15.0"
 }
 
 repositories {
@@ -47,11 +48,19 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
     }
 }
 
+pluginBundle {
+    website = "https://github.com/wem/vertx-hermes-gradle-plugin"
+    vcsUrl = "https://github.com/wem/vertx-hermes-gradle-plugin.git"
+    tags = listOf("dto", "generator", "Vert.x", "Kotlin", "communication", "messagecodec")
+}
+
 gradlePlugin {
     plugins {
         create("vertxHermesPlugin") {
             id = "ch.sourcemotion.gradle.vertx.hermes"
             implementationClass = "ch.sourcemotion.vertx.gradle.hermes.plugin.HermesPlugin"
+            displayName = "Plugin to generate Kotlin source code around Vert.x and dtos"
+            description = "Generates Kotlin source code for dtos, Vert.x message codecs and communication (consumer, sender) based on JSON (schemas). Take a look in the README"
         }
     }
 }

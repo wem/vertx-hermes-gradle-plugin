@@ -69,7 +69,7 @@ class CommunicationSenderGenerator : CommunicationGenerator, Generator<Communica
 
     private fun FunSpec.Builder.withStatementAndModifier(
         definition: CommunicationDefinition,
-        sendMessageType: ClassName?,
+        sendMessageType: TypeName?,
         replyMessageType: TypeName
     ) {
         val messageParam = if (sendMessageType != null) {
@@ -94,10 +94,14 @@ class CommunicationSenderGenerator : CommunicationGenerator, Generator<Communica
         }
     }
 
-    private fun FunSpec.Builder.withSendType(definition: CommunicationDefinition): ClassName? =
+    private fun FunSpec.Builder.withSendType(definition: CommunicationDefinition): TypeName? =
         if (definition.sendMessageType != null) {
-            val sendMessageType = ClassName.bestGuess(definition.sendMessageType)
-            val param = ParameterSpec.builder(MESSAGE_PARAM_NAME, sendMessageType).build()
+            val sendMessageType = evaluateTypeName(definition.sendMessageType, unitTypeName)
+            val paramSpecBuilder = ParameterSpec.builder(MESSAGE_PARAM_NAME, sendMessageType)
+            if (sendMessageType.isNullable) {
+                paramSpecBuilder.defaultValue("%L", "null")
+            }
+            val param = paramSpecBuilder.build()
             sendMessageType.also { addParameter(param) }
         } else null
 

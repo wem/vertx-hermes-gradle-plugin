@@ -33,7 +33,7 @@ class MessageCodecGenerator : Generator<MessageCodecGeneratorConfiguration, Path
     override fun generate(configuration: MessageCodecGeneratorConfiguration): Path {
         val fileSpecBuilder = FileSpec.builder(configuration.packageName, configuration.codecsFileName)
         configuration.classInfos.forEach {
-            fileSpecBuilder.generateMessageCodec(it, configuration.messageCodecNameSupplier)
+            fileSpecBuilder.generateMessageCodec(configuration, it, configuration.messageCodecNameSupplier)
         }
         fileSpecBuilder.addImports().build().writeTo(configuration.outputDir)
 
@@ -50,11 +50,12 @@ class MessageCodecGenerator : Generator<MessageCodecGeneratorConfiguration, Path
     }
 
     private fun FileSpec.Builder.generateMessageCodec(
+        configuration: MessageCodecGeneratorConfiguration,
         classInfo: DtoClassInfo,
         messageCodecNameSupplier: Function<DtoClassInfo, String>
     ) {
         val dtoClassName = ClassName(classInfo.packageName, classInfo.className)
-        val baseJsonMessageCodecTypeName = ClassName(classInfo.packageName, JSON_BASE_MESSAGE_CODEC_CLASS_NAME)
+        val baseJsonMessageCodecTypeName = ClassName(configuration.packageName, JSON_BASE_MESSAGE_CODEC_CLASS_NAME)
             .parameterizedBy(dtoClassName)
 
         addType(

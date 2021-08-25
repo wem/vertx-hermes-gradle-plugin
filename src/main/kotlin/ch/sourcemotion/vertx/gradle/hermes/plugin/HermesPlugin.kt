@@ -99,8 +99,9 @@ class HermesPlugin : Plugin<Project> {
         dtoGenTaskProvider: TaskProvider<DtoGenerationTask>
     ) {
         val commGenTaskEnabled = commGenTaskProvider.isTaskEnabled(extension.communication.enable)
+        val task = commGenTaskProvider.get()
+        task.enabled = commGenTaskEnabled
         if (commGenTaskEnabled) {
-            val task = commGenTaskProvider.get()
             task.applyFinalGenerateSender(extension.communication)
             task.applyFinalGenerateConsumer(extension.communication)
             task.applyFinalPackageName(extension.communication)
@@ -133,9 +134,9 @@ class HermesPlugin : Plugin<Project> {
         dtoGenTaskEnabled: Boolean
     ) {
         val taskEnabled = codecGenTask.isTaskEnabled(extension.codec.enable)
-        codecGenTask.get().enabled = taskEnabled
+        val task = codecGenTask.get()
+        task.enabled = taskEnabled
         if (taskEnabled) {
-            val task = codecGenTask.get()
             task.applyFinalPackageName(extension.codec)
             task.applyFinalMessageCodecsFileName(extension.codec)
             task.applyFinalDefinesMessageCodecNameSupplier(extension.codec)
@@ -164,9 +165,9 @@ class HermesPlugin : Plugin<Project> {
         outputPaths: MutableSet<Path>
     ): Boolean {
         val taskEnabled = dtoGenTaskProvider.isTaskEnabled(extension.dto.enable)
-        dtoGenTaskProvider.get().enabled = taskEnabled
+        val task = dtoGenTaskProvider.get()
+        task.enabled = taskEnabled
         if (taskEnabled) {
-            val task = dtoGenTaskProvider.get()
             task.generatedClassInfo.set(dtoGeneratorTaskInternalOutput)
             task.applyFinalInputPath(
                 projectInputPath,
